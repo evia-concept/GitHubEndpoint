@@ -12,7 +12,7 @@ class Contributors(Resource):
 
     def post(self, org_name):
 
-        return "Not yet implemented", 404
+        return "Method not allowed", 405
 
     def put(self, org_name):
 
