@@ -4,74 +4,25 @@ from flask_restful import Api, Resource, reqparse
 app = Flask(__name__)
 api = Api(app)
 
-users = [
-    {
-        "name": "Nicholas",
-        "age": 42,
-        "occupation": "Network Engineer"
-    },
-    {
-        "name": "Elvin",
-        "age": 32,
-        "occupation": "Doctor"
-    },
-    {
-        "name": "Jass",
-        "age": 22,
-        "occupation": "Web Developer"
-    }
-]
 
-class User(Resource):
-    def get(self, name):
-        for user in users:
-            if(name == user["name"]):
-                return user, 200
-        return "User not found", 404
+class Contributors(Resource):
+    def get(self, org_name):
 
-    def post(self, name):
-        parser = reqparse.RequestParser()
-        parser.add_argument("age")
-        parser.add_argument("occupation")
-        args = parser.parse_args()
+        return "Not yet implemented", 404
 
-        for user in users:
-            if(name == user["name"]):
-                return "User with name {} already exists".format(name), 400
+    def post(self, org_name):
 
-        user = {
-            "name": name,
-            "age": args["age"],
-            "occupation": args["occupation"]
-        }
-        users.append(user)
-        return user, 201
+        return "Not yet implemented", 404
 
-    def put(self, name):
-        parser = reqparse.RequestParser()
-        parser.add_argument("age")
-        parser.add_argument("occupation")
-        args = parser.parse_args()
+    def put(self, org_name):
 
-        for user in users:
-            if(name == user["name"]):
-                user["age"] = args["age"]
-                user["occupation"] = args["occupation"]
-                return user, 200
-        
-        user = {
-            "name": name,
-            "age": args["age"],
-            "occupation": args["occupation"]
-        }
-        users.append(user)
-        return user, 201
+        return "Method not allowed", 405
 
-    def delete(self, name):
-        global users
-        users = [user for user in users if user["name"] != name]
-        return "{} is deleted.".format(name), 200
-      
-api.add_resource(User, "/user/<string:name>")
+    def delete(self, org_name):
 
-app.run(debug=True)
+        return "Method not allowed", 405
+
+
+api.add_resource(Contributors, "/<string:org_name>/contributors")
+
+app.run(port=8080, debug=True)
