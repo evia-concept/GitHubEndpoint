@@ -10,8 +10,7 @@ def list_organization_repositories(organization_name):
         f"https://api.github.com/orgs/{organization_name}/repos"
     )
 
-    return get_response.text
-
+    return get_response
 
 def list_repository_contributors(organization_name, repository_name):
 
@@ -29,4 +28,4 @@ def list_repository_contributors(organization_name, repository_name):
         f"https://api.github.com/repos/{organization_name}/{repository_name}/contributors"
     )
 
-    return get_response.text
+    return get_response
