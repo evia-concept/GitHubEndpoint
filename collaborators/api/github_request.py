@@ -1,19 +1,25 @@
 import requests
+from collaborators.validation.path import Validator
+from collaborators.messages.error_messages import (
+    null_argument_exception,
+    not_allowed_argument_exception,
+)
 
 
 def list_organization_repositories(organization_name):
 
+    Validator.check_valid_name(organization_name)
+
     # GET /orgs/:owner/repos -> name
     # Lists repositories for the specified organization.
 
-    get_response = requests.get(
-        f"https://api.github.com/orgs/{organization_name}/repos"
-    )
-
-    return get_response
+    return requests.get(f"https://api.github.com/orgs/{organization_name}/repos")
 
 
 def list_repository_contributors(organization_name, repository_name):
+
+    Validator.check_valid_name(organization_name)
+    Validator.check_valid_name(repository_name)
 
     # GET /repos/:owner/:repo/contributors -> login, contributions
     # Lists contributors to the specified repository and sorts them by the number of commits
@@ -25,8 +31,6 @@ def list_repository_contributors(organization_name, repository_name):
     # only the first 500 author email addresses in the repository link to GitHub users. The rest will
     # appear as anonymous contributors without associated GitHub user information.
 
-    get_response = requests.get(
+    return requests.get(
         f"https://api.github.com/repos/{organization_name}/{repository_name}/contributors"
     )
-
-    return get_response
